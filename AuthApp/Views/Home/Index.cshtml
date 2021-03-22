@@ -1,0 +1,25 @@
+﻿@using System.Security.Claims;
+
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Hi there!</h1>
+
+    @if (User.Identity.IsAuthenticated)
+    {
+        <p>
+            @{
+                var identity = (ClaimsIdentity)User.Identity;
+                var loginName = identity.Name;
+                var loginTime = identity.GetSpecificClaim("LoginTime");
+            }
+            @loginName logged in at @loginTime.
+        </p>
+    }
+    else
+    {
+        <p>Now you are an anonymous user! Please, <a asp-area="Identity" asp-page="/Account/Login">LogIn</a></p>
+    }
+</div>
