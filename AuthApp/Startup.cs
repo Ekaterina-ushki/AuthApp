@@ -1,17 +1,14 @@
+using System;
 using AuthApp.Data;
+using AuthApp.Data.Entities;
+using Autofac;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.UI;
-using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace AuthApp
 {
@@ -27,13 +24,30 @@ namespace AuthApp
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<ApplicationDbContext>(options =>
-                options.UseSqlServer(
-                    Configuration.GetConnectionString("DefaultConnection")));
-            services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
-                .AddEntityFrameworkStores<ApplicationDbContext>();
+            var sqlConnectionString = Configuration.GetConnectionString("DefaultConnection");
+            services.UseApplicationData(sqlConnectionString);
+
+            services.AddIdentity<User, IdentityRole<int>>(options =>
+                {
+                    options.Password.RequiredLength = 8;
+                    options.Password.RequireUppercase = true;
+                    options.Password.RequireLowercase = true;
+                    options.Password.RequireDigit = true;
+                    options.Password.RequireNonAlphanumeric = true;
+                })
+                .AddEntityFrameworkStores<ApplicationDbContext>()
+                .AddUserStore<UserStore<User, IdentityRole<int>, ApplicationDbContext, int>>()
+                .AddRoleStore<RoleStore<IdentityRole<int>, ApplicationDbContext, int>>()
+                .AddDefaultTokenProviders();
+
             services.AddControllersWithViews();
             services.AddRazorPages();
+        }
+
+        public void ConfigureContainer(ContainerBuilder builder)
+        {
+            var sqlConnectionString = Configuration.GetConnectionString("DefaultConnection");
+            builder.RegisterModule(new DataModule(sqlConnectionString));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -67,6 +81,15 @@ namespace AuthApp
                     pattern: "{controller=Home}/{action=Index}/{id?}");
                 endpoints.MapRazorPages();
             });
+
+            InitializeDatabase(app.ApplicationServices);
+        }
+
+        private void InitializeDatabase(IServiceProvider serviceProvider)
+        {
+            Seeder.Migrate(serviceProvider);
+            Seeder.CreateRoles(serviceProvider).Wait();
+            Seeder.CreateDefaultUser(serviceProvider).Wait();
         }
     }
 }
