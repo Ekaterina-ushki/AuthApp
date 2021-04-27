@@ -1,3 +1,5 @@
+
+
 using System;
 using AuthApp.Data;
 using AuthApp.Data.Entities;
@@ -9,6 +11,7 @@ using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.OpenApi.Models;
 
 namespace AuthApp
 {
@@ -35,13 +38,17 @@ namespace AuthApp
                     options.Password.RequireDigit = true;
                     options.Password.RequireNonAlphanumeric = true;
                 })
-                .AddEntityFrameworkStores<ApplicationDbContext>()
                 .AddUserStore<UserStore<User, IdentityRole<int>, ApplicationDbContext, int>>()
                 .AddRoleStore<RoleStore<IdentityRole<int>, ApplicationDbContext, int>>()
+                .AddEntityFrameworkStores<ApplicationDbContext>()
                 .AddDefaultTokenProviders();
 
-            services.AddControllersWithViews();
+            services.AddControllersWithViews().AddRazorRuntimeCompilation();
             services.AddRazorPages();
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new OpenApiInfo {Title = "AppAuth API", Version = "v1"});
+            });
         }
 
         public void ConfigureContainer(ContainerBuilder builder)
@@ -74,6 +81,9 @@ namespace AuthApp
 
             app.UseMiddleware<AuthTimeMiddleware>();
 
+            app.UseSwagger();
+            app.UseSwaggerUI(c => { c.SwaggerEndpoint("/swagger/v1/swagger.json", "AppAuth API"); });
+
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(
@@ -87,9 +97,12 @@ namespace AuthApp
 
         private void InitializeDatabase(IServiceProvider serviceProvider)
         {
-            Seeder.Migrate(serviceProvider);
-            Seeder.CreateRoles(serviceProvider).Wait();
-            Seeder.CreateDefaultUser(serviceProvider).Wait();
+            using var scope = serviceProvider.CreateScope();
+            var sp = scope.ServiceProvider;
+
+            Seeder.Migrate(sp);
+            Seeder.CreateRoles(sp).Wait();
+            Seeder.CreateDefaultUser(sp).Wait();
         }
     }
 }

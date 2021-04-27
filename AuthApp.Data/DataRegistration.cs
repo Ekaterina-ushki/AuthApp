@@ -5,7 +5,7 @@ namespace AuthApp.Data
 {
     public static class DataRegistration
     {
-        public static IServiceCollection UseApplicationData(this IServiceCollection services, string sqlConnectionString)
+        public static void UseApplicationData(this IServiceCollection services, string sqlConnectionString)
         {
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseNpgsql(
@@ -13,8 +13,6 @@ namespace AuthApp.Data
                     b => b.MigrationsAssembly("AuthApp.Data")
                 )
             );
-
-            return services;
         }
     }
 }

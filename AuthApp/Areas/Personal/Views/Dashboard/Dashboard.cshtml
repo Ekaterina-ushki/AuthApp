@@ -1,0 +1,118 @@
+﻿@using TaskStatus = AuthApp.Data.Models.Common.TaskStatus
+@model AuthApp.Application.Models.Dashboard
+
+@{
+    ViewData["Title"] = "Dashboard";
+}
+
+<h1 class="text-center">@ViewData["Title"]</h1>
+<div class="text-center">
+    <form asp-area="Personal" asp-controller="Dashboard" asp-action="TaskSummary" method="get">
+        <input class="btn btn-primary w-100" type="submit" value="Add Task"/>
+    </form>
+    <br>
+</div>
+<div class="tab-content">
+    <div class="tab-pane active" id="educations">
+        <table class="table table-hover table-bordered">
+            <thead class="text-center">
+            <tr class="table-active">
+                <th scope="col" width="500px">TO DO</th>
+                <th scope="col" width="500px">In Progress</th>
+                <th scope="col" width="500px">Done</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <th class="align-middle">
+                    @foreach (var task in Model.Tasks.Where(x => x.TaskStatus == TaskStatus.ToDo))
+                    {
+                        <div class="card education-card">
+                            <div class="card-body">
+                                <h3 class="card-title text-truncate" style="max-width: 150px;">Title: @task.Name</h3>
+                                <h6 class="card-text text-truncate" style="max-width: 150px;">Description: @task.Description</h6>
+                                <p class="card-text">Task type: @task.TaskType</p>
+                                <div class="border border-dark p-1 bg-table text-center" role="group">
+                                    <form asp-area="Personal" asp-controller="Dashboard" asp-action="TaskSummary" method="get">
+                                        <input type="hidden" name="taskId" value="@task.TaskId"/>
+                                        <input class="btn btn-warning w-100" type="submit" value="Edit Task"/>
+                                    </form>
+
+                                    <br>
+                                    @using (Html.BeginForm("UpdateTaskStatus", "Dashboard", FormMethod.Post, new {@class = "form-inline w-100"}))
+                                    {
+                                        <input data-val="true" name="taskId" type="hidden" value="@task.TaskId"/>
+                                        <input data-val="true" name="newStatus" type="hidden" value="@TaskStatus.InProgress"/>
+                                        <button type="submit" class="btn btn-info btn-block"> Set "In Progress" status</button>
+                                    }
+
+                                    @using (Html.BeginForm("UpdateTaskStatus", "Dashboard", FormMethod.Post, new {@class = "form-inline w-100"}))
+                                    {
+                                        <input data-val="true" name="taskId" type="hidden" value="@task.TaskId"/>
+                                        <input data-val="true" name="newStatus" type="hidden" value="@TaskStatus.Done"/>
+                                        <button type="submit" class="btn btn-success btn-block"> Set "Done" status</button>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </th>
+                <th class="align-middle">
+                    @foreach (var task in Model.Tasks.Where(x => x.TaskStatus == TaskStatus.InProgress))
+                    {
+                        <div class="card education-card">
+                            <div class="card-body">
+                                <h3 class="card-title text-truncate" style="max-width: 150px;">Title: @task.Name</h3>
+                                <h6 class="card-text text-truncate" style="max-width: 150px;">Description: @task.Description</h6>
+                                <p class="card-text">Task type: @task.TaskType</p>
+                                <div class="w-100 border border-dark p-1 bg-table text-center" role="group">
+                                    @using (Html.BeginForm("UpdateTaskStatus", "Dashboard", FormMethod.Post, new {@class = "form-inline w-100"}))
+                                    {
+                                        <input data-val="true" name="taskId" type="hidden" value="@task.TaskId"/>
+                                        <input data-val="true" name="newStatus" type="hidden" value="@TaskStatus.ToDo"/>
+                                        <button type="submit" class="btn btn-primary btn-block"> Set "TO DO" status</button>
+                                    }
+
+                                    @using (Html.BeginForm("UpdateTaskStatus", "Dashboard", FormMethod.Post, new {@class = "form-inline w-100"}))
+                                    {
+                                        <input data-val="true" name="taskId" type="hidden" value="@task.TaskId"/>
+                                        <input data-val="true" name="newStatus" type="hidden" value="@TaskStatus.Done"/>
+                                        <button type="submit" class="btn btn-success btn-block"> Set "Done" status</button>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </th>
+                <th class="align-middle">
+                    @foreach (var task in Model.Tasks.Where(x => x.TaskStatus == TaskStatus.Done))
+                    {
+                        <div class="card education-card">
+                            <div class="card-body">
+                                <h3 class="card-title text-truncate" style="max-width: 150px;">Title: @task.Name</h3>
+                                <h6 class="card-text text-truncate" style="max-width: 150px;">Description: @task.Description</h6>
+                                <p class="card-text">Task type: @task.TaskType</p>
+                                <div class="w-100 border border-dark p-1 bg-table text-center" role="group">
+                                    @using (Html.BeginForm("UpdateTaskStatus", "Dashboard", FormMethod.Post, new {@class = "form-inline w-100"}))
+                                    {
+                                        <input data-val="true" name="taskId" type="hidden" value="@task.TaskId"/>
+                                        <input data-val="true" name="newStatus" type="hidden" value="@TaskStatus.ToDo"/>
+                                        <button type="submit" class="btn btn-primary btn-block"> Set "TODO" status</button>
+                                    }
+
+                                    @using (Html.BeginForm("UpdateTaskStatus", "Dashboard", FormMethod.Post, new {@class = "form-inline w-100"}))
+                                    {
+                                        <input data-val="true" name="taskId" type="hidden" value="@task.TaskId"/>
+                                        <input data-val="true" name="newStatus" type="hidden" value="@TaskStatus.InProgress"/>
+                                        <button type="submit" class="btn btn-info btn-block"> Set "In Progress" status</button>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </th>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

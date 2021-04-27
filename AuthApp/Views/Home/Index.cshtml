@@ -17,9 +17,10 @@
             }
             @loginName logged in at @loginTime.
         </p>
+        <a class="btn btn-outline-primary" asp-area="Personal" asp-controller="Dashboard" asp-action="GetDashboard">Go to dashboard</a>
     }
     else
     {
-        <p>Now you are an anonymous user! Please, <a asp-area="Identity" asp-page="/Account/Login">LogIn</a></p>
+        <p>Now you are an anonymous user! Please, <a asp-area="Personal" asp-controller="Account" asp-action="GetLoginPage">LogIn</a></p>
     }
 </div>

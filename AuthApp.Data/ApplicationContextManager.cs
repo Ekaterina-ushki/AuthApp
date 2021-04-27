@@ -1,7 +1,7 @@
 ﻿using AuthApp.Data.Infrastructure.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
-namespace AuthApp.Data.Infrastructure
+namespace AuthApp.Data
 {
     public sealed class ApplicationContextManager : IEfContextManager<ApplicationDbContext>
     {

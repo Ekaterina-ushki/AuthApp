@@ -22,8 +22,8 @@ namespace AuthApp.Data
         public static async Task CreateRoles(IServiceProvider serviceProvider)
         {
             var roleManager = serviceProvider.GetRequiredService<RoleManager<IdentityRole<int>>>();
-            var dataContext = serviceProvider.GetRequiredService<ApplicationDbContext>();
-            var roleNames = new[] { RoleNames.Common };
+            var roleStore = serviceProvider.GetRequiredService<RoleStore<IdentityRole<int>, ApplicationDbContext, int>>();
+            var roleNames = new[] {RoleNames.Common};
 
             foreach (var roleName in roleNames)
             {
@@ -35,14 +35,15 @@ namespace AuthApp.Data
                 }
             }
 
-            await dataContext.SaveChangesAsync();
+            await roleStore.Context.SaveChangesAsync();
         }
 
         public static async Task CreateDefaultUser(IServiceProvider serviceProvider)
         {
             var userManager = serviceProvider.GetRequiredService<UserManager<User>>();
             var roleManager = serviceProvider.GetRequiredService<RoleManager<IdentityRole<int>>>();
-            var dataContext = serviceProvider.GetRequiredService<ApplicationDbContext>();
+            var userStore = serviceProvider.GetRequiredService<UserStore<User, IdentityRole<int>, ApplicationDbContext, int>>();
+
 
             const string email = "admin@admin.ru";
             const string password = "123123aA_";
@@ -63,11 +64,12 @@ namespace AuthApp.Data
                         {
                             RoleId = role.Id
                         }
-                    }
+                    },
+                    Tasks = new List<DashboardTask>()
                 };
 
                 await userManager.CreateAsync(user, password);
-                await dataContext.SaveChangesAsync();
+                await userStore.Context.SaveChangesAsync();
             }
         }
     }

@@ -1,138 +1,147 @@
 <Project Sdk="Microsoft.NET.Sdk.Web">
 
-  <PropertyGroup>
-    <TargetFramework>netcoreapp3.1</TargetFramework>
-    <UserSecretsId>aspnet-AuthApp-16933FA8-678A-4E35-918A-0945749FFFD0</UserSecretsId>
-  </PropertyGroup>
+    <PropertyGroup>
+        <TargetFramework>netcoreapp3.1</TargetFramework>
+        <UserSecretsId>aspnet-AuthApp-16933FA8-678A-4E35-918A-0945749FFFD0</UserSecretsId>
+    </PropertyGroup>
 
-  <ItemGroup>
-    <PackageReference Include="Autofac" Version="5.2.0" />
-    <PackageReference Include="Autofac.Extensions.DependencyInjection" Version="6.0.0" />
-    <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="3.1.13" />
-    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="3.1.13" />
-    <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="3.1.13" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.13" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="3.1.13" />
-    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.5" />
-    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="3.1.13" />
-    <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="3.1.4" />
-  </ItemGroup>
+    <ItemGroup>
 
-  <ItemGroup>
-      <ProjectReference Include="..\AuthApp.Data\AuthApp.Data.csproj" />
-  </ItemGroup>
+        <PackageReference Include="Autofac" Version="6.2.0" />
+        <PackageReference Include="Autofac.Extensions.DependencyInjection" Version="7.1.0" />
+        <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="3.1.14" />
+        <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="3.1.14" />
+        <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="3.1.14" />
+        <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="3.1.14">
+            <PrivateAssets>all</PrivateAssets>
+            <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+        </PackageReference>
+        <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.5" />
 
-  <ItemGroup>
-    <None Remove="Properties\launchSettings.json" />
-    <None Remove="Properties\serviceDependencies.json" />
-    <None Remove="Properties\serviceDependencies.local.json" />
-    <None Include="appsettings.Development.json" />
-    <None Include="appsettings.json" />
-    <None Include="Areas\Identity\Pages\Account\Login.cshtml" />
-    <None Include="Areas\Identity\Pages\Account\Register.cshtml" />
-    <None Include="Areas\Identity\Pages\Account\_ViewImports.cshtml" />
-    <None Include="Areas\Identity\Pages\_ValidationScriptsPartial.cshtml" />
-    <None Include="Areas\Identity\Pages\_ViewImports.cshtml" />
-    <None Include="Areas\Identity\Pages\_ViewStart.cshtml" />
-    <None Include="Views\Home\Index.cshtml" />
-    <None Include="Views\Home\Privacy.cshtml" />
-    <None Include="Views\Shared\Error.cshtml" />
-    <None Include="Views\Shared\_Layout.cshtml" />
-    <None Include="Views\Shared\_LoginPartial.cshtml" />
-    <None Include="Views\Shared\_ValidationScriptsPartial.cshtml" />
-    <None Include="Views\_ViewImports.cshtml" />
-    <None Include="Views\_ViewStart.cshtml" />
-    <None Include="wwwroot\css\site.css" />
-    <None Include="wwwroot\favicon.ico" />
-    <None Include="wwwroot\js\site.js" />
-    <None Include="wwwroot\lib\bootstrap\dist\css\bootstrap-grid.css" />
-    <None Include="wwwroot\lib\bootstrap\dist\css\bootstrap-grid.css.map" />
-    <None Include="wwwroot\lib\bootstrap\dist\css\bootstrap-grid.min.css" />
-    <None Include="wwwroot\lib\bootstrap\dist\css\bootstrap-grid.min.css.map" />
-    <None Include="wwwroot\lib\bootstrap\dist\css\bootstrap-reboot.css" />
-    <None Include="wwwroot\lib\bootstrap\dist\css\bootstrap-reboot.css.map" />
-    <None Include="wwwroot\lib\bootstrap\dist\css\bootstrap-reboot.min.css" />
-    <None Include="wwwroot\lib\bootstrap\dist\css\bootstrap-reboot.min.css.map" />
-    <None Include="wwwroot\lib\bootstrap\dist\css\bootstrap.css" />
-    <None Include="wwwroot\lib\bootstrap\dist\css\bootstrap.css.map" />
-    <None Include="wwwroot\lib\bootstrap\dist\css\bootstrap.min.css" />
-    <None Include="wwwroot\lib\bootstrap\dist\css\bootstrap.min.css.map" />
-    <None Include="wwwroot\lib\bootstrap\dist\js\bootstrap.bundle.js" />
-    <None Include="wwwroot\lib\bootstrap\dist\js\bootstrap.bundle.js.map" />
-    <None Include="wwwroot\lib\bootstrap\dist\js\bootstrap.bundle.min.js" />
-    <None Include="wwwroot\lib\bootstrap\dist\js\bootstrap.bundle.min.js.map" />
-    <None Include="wwwroot\lib\bootstrap\dist\js\bootstrap.js" />
-    <None Include="wwwroot\lib\bootstrap\dist\js\bootstrap.js.map" />
-    <None Include="wwwroot\lib\bootstrap\dist\js\bootstrap.min.js" />
-    <None Include="wwwroot\lib\bootstrap\dist\js\bootstrap.min.js.map" />
-    <None Include="wwwroot\lib\bootstrap\LICENSE" />
-    <None Include="wwwroot\lib\jquery-validation-unobtrusive\jquery.validate.unobtrusive.js" />
-    <None Include="wwwroot\lib\jquery-validation-unobtrusive\jquery.validate.unobtrusive.min.js" />
-    <None Include="wwwroot\lib\jquery-validation-unobtrusive\LICENSE.txt" />
-    <None Include="wwwroot\lib\jquery-validation\dist\additional-methods.js" />
-    <None Include="wwwroot\lib\jquery-validation\dist\additional-methods.min.js" />
-    <None Include="wwwroot\lib\jquery-validation\dist\jquery.validate.js" />
-    <None Include="wwwroot\lib\jquery-validation\dist\jquery.validate.min.js" />
-    <None Include="wwwroot\lib\jquery-validation\LICENSE.md" />
-    <None Include="wwwroot\lib\jquery\dist\jquery.js" />
-    <None Include="wwwroot\lib\jquery\dist\jquery.min.js" />
-    <None Include="wwwroot\lib\jquery\dist\jquery.min.map" />
-    <None Include="wwwroot\lib\jquery\LICENSE.txt" />
-  </ItemGroup>
+        <PackageReference Include="Swashbuckle.AspNetCore" Version="5.5.1" />
 
-  <ItemGroup>
-    <_ContentIncludedByDefault Remove="Areas\Identity\Pages\Account\Login.cshtml" />
-    <_ContentIncludedByDefault Remove="Areas\Identity\Pages\Account\Register.cshtml" />
-    <_ContentIncludedByDefault Remove="Areas\Identity\Pages\Account\_ViewImports.cshtml" />
-    <_ContentIncludedByDefault Remove="Areas\Identity\Pages\_ValidationScriptsPartial.cshtml" />
-    <_ContentIncludedByDefault Remove="Areas\Identity\Pages\_ViewImports.cshtml" />
-    <_ContentIncludedByDefault Remove="Areas\Identity\Pages\_ViewStart.cshtml" />
-    <_ContentIncludedByDefault Remove="Views\Home\Index.cshtml" />
-    <_ContentIncludedByDefault Remove="Views\Home\Privacy.cshtml" />
-    <_ContentIncludedByDefault Remove="Views\Shared\Error.cshtml" />
-    <_ContentIncludedByDefault Remove="Views\Shared\_Layout.cshtml" />
-    <_ContentIncludedByDefault Remove="Views\Shared\_LoginPartial.cshtml" />
-    <_ContentIncludedByDefault Remove="Views\Shared\_ValidationScriptsPartial.cshtml" />
-    <_ContentIncludedByDefault Remove="Views\_ViewImports.cshtml" />
-    <_ContentIncludedByDefault Remove="Views\_ViewStart.cshtml" />
-    <_ContentIncludedByDefault Remove="wwwroot\css\site.css" />
-    <_ContentIncludedByDefault Remove="wwwroot\favicon.ico" />
-    <_ContentIncludedByDefault Remove="wwwroot\js\site.js" />
-    <_ContentIncludedByDefault Remove="wwwroot\lib\bootstrap\dist\css\bootstrap-grid.css" />
-    <_ContentIncludedByDefault Remove="wwwroot\lib\bootstrap\dist\css\bootstrap-grid.css.map" />
-    <_ContentIncludedByDefault Remove="wwwroot\lib\bootstrap\dist\css\bootstrap-grid.min.css" />
-    <_ContentIncludedByDefault Remove="wwwroot\lib\bootstrap\dist\css\bootstrap-grid.min.css.map" />
-    <_ContentIncludedByDefault Remove="wwwroot\lib\bootstrap\dist\css\bootstrap-reboot.css" />
-    <_ContentIncludedByDefault Remove="wwwroot\lib\bootstrap\dist\css\bootstrap-reboot.css.map" />
-    <_ContentIncludedByDefault Remove="wwwroot\lib\bootstrap\dist\css\bootstrap-reboot.min.css" />
-    <_ContentIncludedByDefault Remove="wwwroot\lib\bootstrap\dist\css\bootstrap-reboot.min.css.map" />
-    <_ContentIncludedByDefault Remove="wwwroot\lib\bootstrap\dist\css\bootstrap.css" />
-    <_ContentIncludedByDefault Remove="wwwroot\lib\bootstrap\dist\css\bootstrap.css.map" />
-    <_ContentIncludedByDefault Remove="wwwroot\lib\bootstrap\dist\css\bootstrap.min.css" />
-    <_ContentIncludedByDefault Remove="wwwroot\lib\bootstrap\dist\css\bootstrap.min.css.map" />
-    <_ContentIncludedByDefault Remove="wwwroot\lib\bootstrap\dist\js\bootstrap.bundle.js" />
-    <_ContentIncludedByDefault Remove="wwwroot\lib\bootstrap\dist\js\bootstrap.bundle.js.map" />
-    <_ContentIncludedByDefault Remove="wwwroot\lib\bootstrap\dist\js\bootstrap.bundle.min.js" />
-    <_ContentIncludedByDefault Remove="wwwroot\lib\bootstrap\dist\js\bootstrap.bundle.min.js.map" />
-    <_ContentIncludedByDefault Remove="wwwroot\lib\bootstrap\dist\js\bootstrap.js" />
-    <_ContentIncludedByDefault Remove="wwwroot\lib\bootstrap\dist\js\bootstrap.js.map" />
-    <_ContentIncludedByDefault Remove="wwwroot\lib\bootstrap\dist\js\bootstrap.min.js" />
-    <_ContentIncludedByDefault Remove="wwwroot\lib\bootstrap\dist\js\bootstrap.min.js.map" />
-    <_ContentIncludedByDefault Remove="wwwroot\lib\bootstrap\LICENSE" />
-    <_ContentIncludedByDefault Remove="wwwroot\lib\jquery-validation-unobtrusive\jquery.validate.unobtrusive.js" />
-    <_ContentIncludedByDefault Remove="wwwroot\lib\jquery-validation-unobtrusive\jquery.validate.unobtrusive.min.js" />
-    <_ContentIncludedByDefault Remove="wwwroot\lib\jquery-validation-unobtrusive\LICENSE.txt" />
-    <_ContentIncludedByDefault Remove="wwwroot\lib\jquery-validation\dist\additional-methods.js" />
-    <_ContentIncludedByDefault Remove="wwwroot\lib\jquery-validation\dist\additional-methods.min.js" />
-    <_ContentIncludedByDefault Remove="wwwroot\lib\jquery-validation\dist\jquery.validate.js" />
-    <_ContentIncludedByDefault Remove="wwwroot\lib\jquery-validation\dist\jquery.validate.min.js" />
-    <_ContentIncludedByDefault Remove="wwwroot\lib\jquery-validation\LICENSE.md" />
-    <_ContentIncludedByDefault Remove="wwwroot\lib\jquery\dist\jquery.js" />
-    <_ContentIncludedByDefault Remove="wwwroot\lib\jquery\dist\jquery.min.js" />
-    <_ContentIncludedByDefault Remove="wwwroot\lib\jquery\dist\jquery.min.map" />
-    <_ContentIncludedByDefault Remove="wwwroot\lib\jquery\LICENSE.txt" />
-  </ItemGroup>
+        <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="3.1.6" />
+    </ItemGroup>
 
-  <ProjectExtensions><VisualStudio><UserProperties appsettings_1json__JsonSchema="" /></VisualStudio></ProjectExtensions>
+
+    <ItemGroup>
+        <ProjectReference Include="..\AuthApp.Data\AuthApp.Data.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <None Remove="Properties\launchSettings.json" />
+        <None Remove="Properties\serviceDependencies.json" />
+        <None Remove="Properties\serviceDependencies.local.json" />
+        <None Include="appsettings.Development.json" />
+        <None Include="appsettings.json" />
+        <None Include="Data\appsettings.json" />
+        <None Include="Views\Home\Index.cshtml" />
+        <None Include="Views\Home\Privacy.cshtml" />
+        <None Include="Views\Shared\Error.cshtml" />
+        <None Include="Views\Shared\_Layout.cshtml" />
+        <None Include="Views\Shared\_LoginPartial.cshtml" />
+        <None Include="Views\Shared\_ValidationScriptsPartial.cshtml" />
+        <None Include="Views\_ViewImports.cshtml" />
+        <None Include="Views\_ViewStart.cshtml" />
+        <None Include="wwwroot\css\site.css" />
+        <None Include="wwwroot\favicon.ico" />
+        <None Include="wwwroot\js\site.js" />
+        <None Include="wwwroot\lib\bootstrap\dist\css\bootstrap-grid.css" />
+        <None Include="wwwroot\lib\bootstrap\dist\css\bootstrap-grid.css.map" />
+        <None Include="wwwroot\lib\bootstrap\dist\css\bootstrap-grid.min.css" />
+        <None Include="wwwroot\lib\bootstrap\dist\css\bootstrap-grid.min.css.map" />
+        <None Include="wwwroot\lib\bootstrap\dist\css\bootstrap-reboot.css" />
+        <None Include="wwwroot\lib\bootstrap\dist\css\bootstrap-reboot.css.map" />
+        <None Include="wwwroot\lib\bootstrap\dist\css\bootstrap-reboot.min.css" />
+        <None Include="wwwroot\lib\bootstrap\dist\css\bootstrap-reboot.min.css.map" />
+        <None Include="wwwroot\lib\bootstrap\dist\css\bootstrap.css" />
+        <None Include="wwwroot\lib\bootstrap\dist\css\bootstrap.css.map" />
+        <None Include="wwwroot\lib\bootstrap\dist\css\bootstrap.min.css" />
+        <None Include="wwwroot\lib\bootstrap\dist\css\bootstrap.min.css.map" />
+        <None Include="wwwroot\lib\bootstrap\dist\js\bootstrap.bundle.js" />
+        <None Include="wwwroot\lib\bootstrap\dist\js\bootstrap.bundle.js.map" />
+        <None Include="wwwroot\lib\bootstrap\dist\js\bootstrap.bundle.min.js" />
+        <None Include="wwwroot\lib\bootstrap\dist\js\bootstrap.bundle.min.js.map" />
+        <None Include="wwwroot\lib\bootstrap\dist\js\bootstrap.js" />
+        <None Include="wwwroot\lib\bootstrap\dist\js\bootstrap.js.map" />
+        <None Include="wwwroot\lib\bootstrap\dist\js\bootstrap.min.js" />
+        <None Include="wwwroot\lib\bootstrap\dist\js\bootstrap.min.js.map" />
+        <None Include="wwwroot\lib\bootstrap\LICENSE" />
+        <None Include="wwwroot\lib\jquery-validation-unobtrusive\jquery.validate.unobtrusive.js" />
+        <None Include="wwwroot\lib\jquery-validation-unobtrusive\jquery.validate.unobtrusive.min.js" />
+        <None Include="wwwroot\lib\jquery-validation-unobtrusive\LICENSE.txt" />
+        <None Include="wwwroot\lib\jquery-validation\dist\additional-methods.js" />
+        <None Include="wwwroot\lib\jquery-validation\dist\additional-methods.min.js" />
+        <None Include="wwwroot\lib\jquery-validation\dist\jquery.validate.js" />
+        <None Include="wwwroot\lib\jquery-validation\dist\jquery.validate.min.js" />
+        <None Include="wwwroot\lib\jquery-validation\LICENSE.md" />
+        <None Include="wwwroot\lib\jquery\dist\jquery.js" />
+        <None Include="wwwroot\lib\jquery\dist\jquery.min.js" />
+        <None Include="wwwroot\lib\jquery\dist\jquery.min.map" />
+        <None Include="wwwroot\lib\jquery\LICENSE.txt" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <_ContentIncludedByDefault Remove="Areas\Identity\Pages\Account\Login.cshtml" />
+        <_ContentIncludedByDefault Remove="Areas\Identity\Pages\Account\Register.cshtml" />
+        <_ContentIncludedByDefault Remove="Areas\Identity\Pages\Account\_ViewImports.cshtml" />
+        <_ContentIncludedByDefault Remove="Areas\Identity\Pages\_ValidationScriptsPartial.cshtml" />
+        <_ContentIncludedByDefault Remove="Areas\Identity\Pages\_ViewImports.cshtml" />
+        <_ContentIncludedByDefault Remove="Areas\Identity\Pages\_ViewStart.cshtml" />
+        <_ContentIncludedByDefault Remove="Views\Home\Index.cshtml" />
+        <_ContentIncludedByDefault Remove="Views\Home\Privacy.cshtml" />
+        <_ContentIncludedByDefault Remove="Views\Shared\Error.cshtml" />
+        <_ContentIncludedByDefault Remove="Views\Shared\_Layout.cshtml" />
+        <_ContentIncludedByDefault Remove="Views\Shared\_LoginPartial.cshtml" />
+        <_ContentIncludedByDefault Remove="Views\Shared\_ValidationScriptsPartial.cshtml" />
+        <_ContentIncludedByDefault Remove="Views\_ViewImports.cshtml" />
+        <_ContentIncludedByDefault Remove="Views\_ViewStart.cshtml" />
+        <_ContentIncludedByDefault Remove="wwwroot\css\site.css" />
+        <_ContentIncludedByDefault Remove="wwwroot\favicon.ico" />
+        <_ContentIncludedByDefault Remove="wwwroot\js\site.js" />
+        <_ContentIncludedByDefault Remove="wwwroot\lib\bootstrap\dist\css\bootstrap-grid.css" />
+        <_ContentIncludedByDefault Remove="wwwroot\lib\bootstrap\dist\css\bootstrap-grid.css.map" />
+        <_ContentIncludedByDefault Remove="wwwroot\lib\bootstrap\dist\css\bootstrap-grid.min.css" />
+        <_ContentIncludedByDefault Remove="wwwroot\lib\bootstrap\dist\css\bootstrap-grid.min.css.map" />
+        <_ContentIncludedByDefault Remove="wwwroot\lib\bootstrap\dist\css\bootstrap-reboot.css" />
+        <_ContentIncludedByDefault Remove="wwwroot\lib\bootstrap\dist\css\bootstrap-reboot.css.map" />
+        <_ContentIncludedByDefault Remove="wwwroot\lib\bootstrap\dist\css\bootstrap-reboot.min.css" />
+        <_ContentIncludedByDefault Remove="wwwroot\lib\bootstrap\dist\css\bootstrap-reboot.min.css.map" />
+        <_ContentIncludedByDefault Remove="wwwroot\lib\bootstrap\dist\css\bootstrap.css" />
+        <_ContentIncludedByDefault Remove="wwwroot\lib\bootstrap\dist\css\bootstrap.css.map" />
+        <_ContentIncludedByDefault Remove="wwwroot\lib\bootstrap\dist\css\bootstrap.min.css" />
+        <_ContentIncludedByDefault Remove="wwwroot\lib\bootstrap\dist\css\bootstrap.min.css.map" />
+        <_ContentIncludedByDefault Remove="wwwroot\lib\bootstrap\dist\js\bootstrap.bundle.js" />
+        <_ContentIncludedByDefault Remove="wwwroot\lib\bootstrap\dist\js\bootstrap.bundle.js.map" />
+        <_ContentIncludedByDefault Remove="wwwroot\lib\bootstrap\dist\js\bootstrap.bundle.min.js" />
+        <_ContentIncludedByDefault Remove="wwwroot\lib\bootstrap\dist\js\bootstrap.bundle.min.js.map" />
+        <_ContentIncludedByDefault Remove="wwwroot\lib\bootstrap\dist\js\bootstrap.js" />
+        <_ContentIncludedByDefault Remove="wwwroot\lib\bootstrap\dist\js\bootstrap.js.map" />
+        <_ContentIncludedByDefault Remove="wwwroot\lib\bootstrap\dist\js\bootstrap.min.js" />
+        <_ContentIncludedByDefault Remove="wwwroot\lib\bootstrap\dist\js\bootstrap.min.js.map" />
+        <_ContentIncludedByDefault Remove="wwwroot\lib\bootstrap\LICENSE" />
+        <_ContentIncludedByDefault Remove="wwwroot\lib\jquery-validation-unobtrusive\jquery.validate.unobtrusive.js" />
+        <_ContentIncludedByDefault Remove="wwwroot\lib\jquery-validation-unobtrusive\jquery.validate.unobtrusive.min.js" />
+        <_ContentIncludedByDefault Remove="wwwroot\lib\jquery-validation-unobtrusive\LICENSE.txt" />
+        <_ContentIncludedByDefault Remove="wwwroot\lib\jquery-validation\dist\additional-methods.js" />
+        <_ContentIncludedByDefault Remove="wwwroot\lib\jquery-validation\dist\additional-methods.min.js" />
+        <_ContentIncludedByDefault Remove="wwwroot\lib\jquery-validation\dist\jquery.validate.js" />
+        <_ContentIncludedByDefault Remove="wwwroot\lib\jquery-validation\dist\jquery.validate.min.js" />
+        <_ContentIncludedByDefault Remove="wwwroot\lib\jquery-validation\LICENSE.md" />
+        <_ContentIncludedByDefault Remove="wwwroot\lib\jquery\dist\jquery.js" />
+        <_ContentIncludedByDefault Remove="wwwroot\lib\jquery\dist\jquery.min.js" />
+        <_ContentIncludedByDefault Remove="wwwroot\lib\jquery\dist\jquery.min.map" />
+        <_ContentIncludedByDefault Remove="wwwroot\lib\jquery\LICENSE.txt" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <Folder Include="Data" />
+    </ItemGroup>
+
+    <ProjectExtensions>
+        <VisualStudio>
+            <UserProperties appsettings_1json__JsonSchema="" />
+        </VisualStudio>
+    </ProjectExtensions>
 
 </Project>

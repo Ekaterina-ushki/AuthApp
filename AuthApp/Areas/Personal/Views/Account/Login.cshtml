@@ -1,5 +1,4 @@
-﻿@page "/Account/Login"
-@model LoginModel
+﻿@model AuthApp.Application.Queries.LoginQuery
 
 @{
     ViewData["Title"] = "Log in";
@@ -9,25 +8,25 @@
 <div class="row">
     <div class="col-md-4">
         <section>
-            <form id="account" method="post">
+            <form asp-action="Login" asp-controller="Account" id="account">
                 <h4>Use a local account to log in.</h4>
                 <hr />
                 <div asp-validation-summary="All" class="text-danger"></div>
                 <div class="form-group">
-                    <label asp-for="Input.Email"></label>
-                    <input asp-for="Input.Email" class="form-control" />
-                    <span asp-validation-for="Input.Email" class="text-danger"></span>
+                    <label asp-for="Email"></label>
+                    <input asp-for="Email" class="form-control" />
+                    <span asp-validation-for="Email" class="text-danger"></span>
                 </div>
                 <div class="form-group">
-                    <label asp-for="Input.Password"></label>
-                    <input asp-for="Input.Password" class="form-control" />
-                    <span asp-validation-for="Input.Password" class="text-danger"></span>
+                    <label asp-for="Password"></label>
+                    <input asp-for="Password" class="form-control" />
+                    <span asp-validation-for="Password" class="text-danger"></span>
                 </div>
                 <div class="form-group">
                     <div class="checkbox">
-                        <label asp-for="Input.RememberMe">
-                            <input asp-for="Input.RememberMe" />
-                            @Html.DisplayNameFor(m => m.Input.RememberMe)
+                        <label asp-for="RememberMe">
+                            <input asp-for="RememberMe" />
+                            @Html.DisplayNameFor(m => m.RememberMe)
                         </label>
                     </div>
                 </div>
@@ -36,10 +35,10 @@
                 </div>
                 <div class="form-group">
                     <p>
-                        <a id="forgot-password" asp-page="./ForgotPassword">Forgot your password?</a>
+                        @* <a id="forgot-password" asp-page="./ForgotPassword">Forgot your password?</a> *@
                     </p>
                     <p>
-                        <a asp-page="./Register" asp-route-returnUrl="@Model.ReturnUrl">Register as a new user</a>
+                        <a asp-area="Personal" asp-controller="Account" asp-action="GetRegisterPage" asp-route-returnUrl="@Model.ReturnUrl">Register as a new user</a>
                     </p>
                 </div>
             </form>

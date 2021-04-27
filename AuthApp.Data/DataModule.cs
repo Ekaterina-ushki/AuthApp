@@ -1,9 +1,9 @@
 ﻿using AuthApp.Data.Entities;
-using AuthApp.Data.Infrastructure;
 using AuthApp.Data.Infrastructure.Interfaces;
 using Autofac;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Module = Autofac.Module;
 
 namespace AuthApp.Data
 {

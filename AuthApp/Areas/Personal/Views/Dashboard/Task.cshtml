@@ -1,0 +1,62 @@
+﻿@model AuthApp.Data.Entities.DashboardTask
+
+@{
+    ViewData["Title"] = "Task Summary";
+}
+@if (Model.TaskId == 0)
+{
+    <h1 class="text-center">Create Task</h1>
+}
+else
+{
+    <h1 class="text-center">@ViewData["Title"]</h1>
+}
+<form asp-action="TaskSummary" enctype="multipart/form-data" method="post" class="mt-xl-5" asp-anti-forgery="true">
+    <div asp-validation-summary="ModelOnly"></div>
+
+    <input data-val="true" asp-for="OwnerId" type="hidden" value="@Model.OwnerId"/>
+    <input data-val="true" asp-for="TaskId" type="hidden" value="@Model.TaskId"/>
+
+    <div class="form-horizontal">
+        <div class="form-row justify-content-center text-body">
+            <div class="col-md-2 justify-contenxt-center">
+                <label asp-for="Name" class="control-label col-form-label"></label>
+            </div>
+            <div class="col-md-4">
+                <input asp-for="Name" class="form-control" disabled/>
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="form-horizontal">
+        <div class="form-row justify-content-center text-body">
+            <div class="col-md-2 justify-contenxt-center">
+                <label asp-for="Description" class="control-label col-form-label"></label>
+            </div>
+            <div class="col-md-4">
+                <input asp-for="Description" class="form-control" disabled/>
+                <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+        </div>
+    </div>
+    
+    <div class="form-row justify-content-center">
+        <div class="col-md-2">
+            <label asp-for="TaskType" class="control-label col-form-label"></label>
+        </div>
+        <div class="col-md-4">
+            @Html.DropDownListFor(x => x.TaskType, ViewBag.TaskTypes as IEnumerable<SelectListItem>, new {@class = "form-control"})
+        </div>
+    </div>
+    
+    <div class="form-row justify-content-center mt-5">
+        <div class="col-md-2">
+            <input type="submit" value="Save" class="btn btn-primary btn-block" id="saveButton"/>
+        </div>
+        <div class="col-md-2">
+            <a class="btn btn-danger btn-block" asp-area="Personal" asp-controller="Dashboard" asp-action="GetDashboard">Back</a>
+        </div>
+    </div>
+    
+</form>
