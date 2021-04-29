@@ -21,9 +21,7 @@ namespace AuthApp.Areas.Personal.Controllers
     {
         private readonly SignInManager<User> _signInManager;
         private readonly UserManager<User> _userManager;
-        // private readonly IEmailSender _emailSender;
         private readonly ILogger<AccountController> _logger;
-        private readonly ApplicationDbContext _dataContext;
         private readonly RoleManager<IdentityRole<int>> _roleManager;
         private readonly UserStore<User, IdentityRole<int>, ApplicationDbContext, int> _userStore;
 
@@ -32,49 +30,37 @@ namespace AuthApp.Areas.Personal.Controllers
 
         public AccountController(SignInManager<User> signInManager,
             UserManager<User> userManager,
-            // IEmailSender emailSender,
             ILogger<AccountController> logger,
-            ApplicationDbContext dataContext,
             RoleManager<IdentityRole<int>> roleManager,
             UserStore<User, IdentityRole<int>, ApplicationDbContext, int> userStore)
         {
             _signInManager = signInManager;
             _userManager = userManager;
-            // _emailSender = emailSender;
             _logger = logger;
-            _dataContext = dataContext;
             _roleManager = roleManager;
             _userStore = userStore;
         }
 
         [AllowAnonymous]
         [HttpGet, Route("LoginPage")]
-        public async Task<ActionResult> GetLoginPage(string returnUrl = null)
+        public async Task<ActionResult> GetLoginPage()
         {
             if (!string.IsNullOrEmpty(ErrorMessage))
             {
                 ModelState.AddModelError(string.Empty, ErrorMessage);
             }
 
-            returnUrl ??= Url.Content("~/");
-
             // Clear the existing external cookie to ensure a clean login process
             await HttpContext.SignOutAsync(IdentityConstants.ExternalScheme);
-            var query = new LoginQuery
-            {
-                ReturnUrl = returnUrl,
-                ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList()
-            };
 
-            return View("Login", query);
+            return View("Login");
         }
 
         [AllowAnonymous]
         [HttpPost, Route("Login")]
         public async Task<ActionResult> Login(LoginQuery query)
         {
-            var returnUrl = query.ReturnUrl ?? Url.Content("~/");
-
+            var returnUrl = Url.Content("~/");
             if (!ModelState.IsValid)
             {
                 return View("Login", query);
@@ -82,22 +68,17 @@ namespace AuthApp.Areas.Personal.Controllers
 
             // This doesn't count login failures towards account lockout
             // To enable password failures to trigger account lockout, set lockoutOnFailure: true
-            var result = await _signInManager.PasswordSignInAsync(query.Email, query.Password, query.RememberMe, lockoutOnFailure: false);
+            var result = await _signInManager.PasswordSignInAsync(query.Email, query.Password, true, false);
 
             if (result.Succeeded)
             {
-                _logger.LogInformation("User logged in.");
+                _logger.LogInformation("User logged in");
                 return LocalRedirect(returnUrl);
-            }
-
-            if (result.RequiresTwoFactor)
-            {
-                return RedirectToPage("./LoginWith2fa", new { ReturnUrl = returnUrl, RememberMe = query.RememberMe });
             }
 
             if (result.IsLockedOut)
             {
-                _logger.LogWarning("User account locked out.");
+                _logger.LogWarning("User account locked out");
                 ModelState.AddModelError("","User account locked out.");
                 return View("Login", query);
             }
@@ -108,23 +89,16 @@ namespace AuthApp.Areas.Personal.Controllers
 
         [AllowAnonymous]
         [HttpGet, Route("RegisterPage")]
-        public async Task<ActionResult> GetRegisterPage(string returnUrl = null)
+        public ActionResult GetRegisterPage()
         {
-            var command = new RegisterCommand
-            {
-                ReturnUrl = returnUrl,
-                ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList()
-            };
-
-            return View("Register", command);
+            return View("Register");
         }
 
         [AllowAnonymous]
         [HttpPost,Route("Register")]
         public async Task<ActionResult> Register(RegisterCommand command)
         {
-            var returnUrl = command.ReturnUrl ?? Url.Content("~/");
-            command.ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
+            var returnUrl = Url.Content("~/");
 
             if (!ModelState.IsValid)
             {
@@ -136,7 +110,7 @@ namespace AuthApp.Areas.Personal.Controllers
                 UserName = command.Email,
                 Email = command.Email,
                 PhoneNumber = string.Empty,
-                EmailConfirmed = false,
+                EmailConfirmed = true,
                 Roles = new List<IdentityUserRole<int>> {
                     new IdentityUserRole<int>
                     {
@@ -149,25 +123,9 @@ namespace AuthApp.Areas.Personal.Controllers
             if (result.Succeeded)
             {
                 await _userStore.Context.SaveChangesAsync();
-                _logger.LogInformation("User created a new account with password.");
+                _logger.LogInformation("User created a new account with password");
 
-                // var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
-                // code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));
-                // var callbackUrl = Url.Page(
-                //     "/Account/ConfirmEmail",
-                //     pageHandler: null,
-                //     values: new { area = "Personal", userId = user.Id, code = code, returnUrl = returnUrl },
-                //     protocol: Request.Scheme);
-                //
-                // await _emailSender.SendEmailAsync(command.Email, "Confirm your email",
-                //     $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
-
-                // if (_userManager.Options.SignIn.RequireConfirmedAccount)
-                // {
-                //     return RedirectToPage("RegisterConfirmation", new { email = command.Email, returnUrl = returnUrl });
-                // }
-
-                await _signInManager.SignInAsync(user, isPersistent: false);
+                await _signInManager.SignInAsync(user, true);
                 return LocalRedirect(returnUrl);
             }
             foreach (var error in result.Errors)
@@ -175,7 +133,6 @@ namespace AuthApp.Areas.Personal.Controllers
                 ModelState.AddModelError(string.Empty, error.Description);
             }
 
-            // If we got this far, something failed, redisplay form
             return View("Register");
         }
 
@@ -184,7 +141,7 @@ namespace AuthApp.Areas.Personal.Controllers
         public async Task<ActionResult> Logout()
         {
             await _signInManager.SignOutAsync();
-            _logger.LogInformation("User logged out.");
+            _logger.LogInformation("User logged out");
             return RedirectToAction("Index", "Home");
         }
     }

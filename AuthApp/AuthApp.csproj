@@ -34,7 +34,6 @@
         <None Remove="Properties\serviceDependencies.local.json" />
         <None Include="appsettings.Development.json" />
         <None Include="appsettings.json" />
-        <None Include="Data\appsettings.json" />
         <None Include="Views\Home\Index.cshtml" />
         <None Include="Views\Home\Privacy.cshtml" />
         <None Include="Views\Shared\Error.cshtml" />
@@ -135,7 +134,7 @@
     </ItemGroup>
 
     <ItemGroup>
-        <Folder Include="Data" />
+      <Content Include="Properties\launchSettings.json" />
     </ItemGroup>
 
     <ProjectExtensions>

@@ -1,7 +1,6 @@
 ﻿using System.Diagnostics;
 using AuthApp.Data.Models.Errors;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
 
 namespace AuthApp.Controllers
 {
