@@ -29,8 +29,8 @@
                     {
                         <div class="card education-card">
                             <div class="card-body">
-                                <h3 class="card-title text-truncate" style="max-width: 150px;">Title: @task.Name</h3>
-                                <h6 class="card-text text-truncate" style="max-width: 150px;">Description: @task.Description</h6>
+                                <h3 class="card-title text-truncate m-0" style="max-width: 300px;">Title: @task.Name</h3>
+                                <h6 class="card-text text-truncate m-0" style="max-width: 300px;">Description: @task.Description</h6>
                                 <p class="card-text">Task type: @task.TaskType</p>
                                 <div class="border border-dark p-1 bg-table text-center" role="group">
                                     <form asp-area="Personal" asp-controller="Dashboard" asp-action="TaskSummary" method="get">
@@ -62,8 +62,8 @@
                     {
                         <div class="card education-card">
                             <div class="card-body">
-                                <h3 class="card-title text-truncate" style="max-width: 150px;">Title: @task.Name</h3>
-                                <h6 class="card-text text-truncate" style="max-width: 150px;">Description: @task.Description</h6>
+                                <h3 class="card-title text-truncate m-0" style="max-width: 300px;">Title: @task.Name</h3>
+                                <h6 class="card-text text-truncate m-0" style="max-width: 300px;">Description: @task.Description</h6>
                                 <p class="card-text">Task type: @task.TaskType</p>
                                 <div class="w-100 border border-dark p-1 bg-table text-center" role="group">
                                     @using (Html.BeginForm("UpdateTaskStatus", "Dashboard", FormMethod.Post, new {@class = "form-inline w-100"}))
@@ -89,8 +89,8 @@
                     {
                         <div class="card education-card">
                             <div class="card-body">
-                                <h3 class="card-title text-truncate" style="max-width: 150px;">Title: @task.Name</h3>
-                                <h6 class="card-text text-truncate" style="max-width: 150px;">Description: @task.Description</h6>
+                                <h3 class="card-title text-truncate m-0" style="max-width: 300px;">Title: @task.Name</h3>
+                                <h6 class="card-text text-truncate m-0" style="max-width: 300px;">Description: @task.Description</h6>
                                 <p class="card-text">Task type: @task.TaskType</p>
                                 <div class="w-100 border border-dark p-1 bg-table text-center" role="group">
                                     @using (Html.BeginForm("UpdateTaskStatus", "Dashboard", FormMethod.Post, new {@class = "form-inline w-100"}))

@@ -1,4 +1,4 @@
-﻿@model AuthApp.Data.Entities.DashboardTask
+﻿@model AuthApp.Application.Commands.AddOrUpdateTaskCommand
 
 @{
     ViewData["Title"] = "Task Summary";
@@ -11,9 +11,7 @@ else
 {
     <h1 class="text-center">@ViewData["Title"]</h1>
 }
-<form asp-action="TaskSummary" enctype="multipart/form-data" method="post" class="mt-xl-5" asp-anti-forgery="true">
-    <div asp-validation-summary="ModelOnly"></div>
-
+<form asp-action="AddOrUpdateTask" enctype="multipart/form-data" method="post" class="mt-xl-5" asp-anti-forgery="true">
     <input data-val="true" asp-for="OwnerId" type="hidden" value="@Model.OwnerId"/>
     <input data-val="true" asp-for="TaskId" type="hidden" value="@Model.TaskId"/>
 
@@ -23,7 +21,7 @@ else
                 <label asp-for="Name" class="control-label col-form-label"></label>
             </div>
             <div class="col-md-4">
-                <input asp-for="Name" class="form-control" disabled/>
+                <textarea asp-for="Name" class="form-control"></textarea>
                 <span asp-validation-for="Name" class="text-danger"></span>
             </div>
         </div>
@@ -35,7 +33,7 @@ else
                 <label asp-for="Description" class="control-label col-form-label"></label>
             </div>
             <div class="col-md-4">
-                <input asp-for="Description" class="form-control" disabled/>
+                <textarea asp-for="Description" class="form-control"></textarea>
                 <span asp-validation-for="Description" class="text-danger"></span>
             </div>
         </div>
